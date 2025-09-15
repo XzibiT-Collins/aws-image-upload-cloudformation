@@ -56,7 +56,7 @@ Parameters:
     Description: Database Engine
   DBEngineVersion:
     Type: String
-    Default: 17.4-R1
+    Default: 14.17
     Description: Database Engine Version
   AllocatedStorage:
     Type: Number
