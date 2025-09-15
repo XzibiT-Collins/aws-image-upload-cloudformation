@@ -653,11 +653,11 @@ Resources:
               ValueFrom: !Sub ${DBCredentialsSecret}:password
           Environment:
             - Name: DB_PORT
-              ValueFrom: !GetAtt RDSInstance.Endpoint.Port
+              Value: !GetAtt RDSInstance.Endpoint.Port
             - Name: DB_HOST
-              ValueFrom: !GetAtt RDSInstance.Endpoint.Address
+              Value: !GetAtt RDSInstance.Endpoint.Address
             - Name: DB_NAME
-              ValueFrom: !Ref DBName
+              Value: !Ref DBName
 
   # Load Balancer
   LoadBalancer:
