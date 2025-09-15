@@ -247,7 +247,7 @@ Resources:
     Type: AWS::EC2::VPCEndpoint
     Properties:
       VpcId: !Ref EcsVPC
-      ServiceName: !Sub com.amazonaws.${AWS::Region}.ecr.dkr
+      ServiceName: !Sub com.amazonaws.${AWS::Region}.ecr.api
       VpcEndpointType: Interface
       SubnetIds:
         - !Ref PrivateSubnet1
