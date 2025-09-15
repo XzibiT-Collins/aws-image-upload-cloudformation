@@ -48,7 +48,7 @@ Parameters:
     Description: Database Name
   DBMasterUsername:
     Type: String
-    Default: admin
+    Default: galleryuser
     Description: Database Master Username
   DBInstanceClass:
     Type: String
