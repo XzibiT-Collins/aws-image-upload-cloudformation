@@ -646,18 +646,18 @@ Resources:
             Interval: 30
             Timeout: 5
             Retries: 3
-      Secrets:
-        - Name: DB_USERNAME
-          ValueFrom: !Sub ${DBCredentialsSecret}:username
-        - Name: DB_PASSWORD
-          ValueFrom: !Sub ${DBCredentialsSecret}:password
-      Environment:
-        - Name: DB_PORT
-          ValueFrom: !GetAtt RDSInstance.Endpoint.Port
-        - Name: DB_HOST
-          ValueFrom: !GetAtt RDSInstance.Endpoint.Address
-        - Name: DB_NAME
-          ValueFrom: !Ref DBName
+          Secrets:
+            - Name: DB_USERNAME
+              ValueFrom: !Sub ${DBCredentialsSecret}:username
+            - Name: DB_PASSWORD
+              ValueFrom: !Sub ${DBCredentialsSecret}:password
+          Environment:
+            - Name: DB_PORT
+              ValueFrom: !GetAtt RDSInstance.Endpoint.Port
+            - Name: DB_HOST
+              ValueFrom: !GetAtt RDSInstance.Endpoint.Address
+            - Name: DB_NAME
+              ValueFrom: !Ref DBName
 
   # Load Balancer
   LoadBalancer:
