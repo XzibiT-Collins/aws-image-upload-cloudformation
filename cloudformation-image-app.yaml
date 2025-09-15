@@ -338,8 +338,6 @@ Resources:
   # S3 Bucket Policy to allow access when coming form s3 VPC endpoints and ECS SG
   ImageBucketPolicy:
     Type: AWS::S3::BucketPolicy
-    DependsOn:
-      - ECSTaskRole
     Properties:
       Bucket: !Ref ImageBucket
       PolicyDocument:
@@ -347,7 +345,7 @@ Resources:
         Statement:
           - Sid: AllowAccessFromVPCEndpoints
             Effect: Allow
-            Principal: !GetAtt ECSTaskRole.Arn
+            Principal: "*"
             Action:
               - s3:GetObject
               - s3:PutObject
@@ -362,7 +360,8 @@ Resources:
 
 
 
- ## DATABASE INFRASTRUCTURE -- RDS PostgreSQL
+
+  ## DATABASE INFRASTRUCTURE -- RDS PostgreSQL
   # DB Subnet Group: specifies the subnets that will be used for the DB
   DBSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
