@@ -415,7 +415,7 @@ Resources:
     Type: AWS::SSM::Parameter
     Properties:
       Name: !Sub /${EnvironmentName}/rds/postgres/password
-      Type: SecureString
+      Type: String
       Value: !Sub '{{resolve:secretsmanager:${DBCredentialsSecret}::password}}'
 
 
