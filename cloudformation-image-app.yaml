@@ -398,14 +398,7 @@ Resources:
       Name: !Sub ${EnvironmentName}/rds/postgres/credentials
       Description: !Sub RDS credentials for ${EnvironmentName}
       GenerateSecretString:
-        SecretStringTemplate: !Sub |
-          {
-            "username": "${DBMasterUsername}",
-            "password": "${RDSInstance.MasterUserPassword}",
-            "dbname": "${RDSInstance.DBName}",
-            "host": "${RDSInstance.Endpoint.Address}",
-            "port": "${RDSInstance.Endpoint.Port}"
-          }
+        SecretStringTemplate: !Sub '{"username": "${DBMasterUsername}"}'
         GenerateStringKey: password
         PasswordLength: 16
         ExcludePunctuation: true
@@ -654,16 +647,17 @@ Resources:
             Timeout: 5
             Retries: 3
       Secrets:
-        - Name: DB_PORT
-          ValueFrom: !Sub ${DBCredentialsSecret}:port
-        - Name: DB_HOST
-          ValueFrom: !Sub ${DBCredentialsSecret}:host
-        - Name: DB_NAME
-          ValueFrom: !Sub ${DBCredentialsSecret}:dbname
         - Name: DB_USERNAME
           ValueFrom: !Sub ${DBCredentialsSecret}:username
         - Name: DB_PASSWORD
           ValueFrom: !Sub ${DBCredentialsSecret}:password
+      Environment:
+        - Name: DB_PORT
+          ValueFrom: !GetAtt RDSInstance.Endpoint.Port
+        - Name: DB_HOST
+          ValueFrom: !GetAtt RDSInstance.Endpoint.Address
+        - Name: DB_NAME
+          ValueFrom: !Ref DBName
 
   # Load Balancer
   LoadBalancer:
