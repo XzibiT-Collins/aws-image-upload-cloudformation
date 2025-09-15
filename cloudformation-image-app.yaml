@@ -1070,3 +1070,9 @@ Outputs:
   EnvironmentName:
     Description: Name of the Environment
     Value: !Ref EnvironmentName
+  RDSInstance:
+    Description: Name of the RDS Instance
+    Value: !Ref RDSInstance
+  ImageBucket:
+    Description: Name of the Image Bucket
+    Value: !Ref ImageBucket
