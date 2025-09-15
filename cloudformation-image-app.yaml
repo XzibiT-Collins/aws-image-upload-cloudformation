@@ -403,6 +403,21 @@ Resources:
         PasswordLength: 16
         ExcludePunctuation: true
 
+  # Parameter Store for DB Credentials for easy access from application
+  DBUsernameParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub /${EnvironmentName}/rds/postgres/username
+      Type: String
+      Value: !Sub ${DBMasterUsername}
+
+  DBPasswordParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub /${EnvironmentName}/rds/postgres/password
+      Type: SecureString
+      Value: !Sub '{{resolve:secretsmanager:${DBCredentialsSecret}::password}}'
+
 
   # RDS Instance
   RDSInstance:
@@ -647,11 +662,12 @@ Resources:
             Timeout: 5
             Retries: 3
           Secrets:
-            - Name: DB_USERNAME
-              ValueFrom: !Sub ${DBCredentialsSecret}:username
-            - Name: DB_PASSWORD
-              ValueFrom: !Sub ${DBCredentialsSecret}:password
+
           Environment:
+            - Name: DB_USERNAME
+              ValueFrom: !Ref DBUsernameParameter
+            - Name: DB_PASSWORD
+              ValueFrom: !Ref DBPasswordParameter
             - Name: DB_PORT
               Value: !GetAtt RDSInstance.Endpoint.Port
             - Name: DB_HOST
