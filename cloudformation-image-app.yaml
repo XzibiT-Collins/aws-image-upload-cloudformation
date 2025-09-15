@@ -590,6 +590,11 @@ Resources:
                   - ecr:DescribeRepositories
                   - ecr:ListImages
                 Resource: "*"
+              - Effect: Allow
+                Action:
+                  - secretsmanager:GetSecretValue
+                  - ssm:GetParameter
+                Resource: "*"
 
 
   # IAM Role for Task Definition: This is the role that will be used by the ECS Tasks eg. Upload image and Get image from S3
