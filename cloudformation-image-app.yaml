@@ -579,28 +579,29 @@ Resources:
       Path: "/"
       Policies:
         - PolicyName: ECSTaskRoleS3Access
-          Version: 2012-10-17
-          Statement:
-            - Effect: Allow
-              Action:
-                - s3:GetObject
-                - s3:PutObject
-                - s3:DeleteObject
-                - s3:ListBucket
-              Resource:
-                - !Sub arn:aws:s3:::${ImageBucket}
-                - !Sub arn:aws:s3:::${ImageBucket}/*
-            # Allow application to connect to RDS (Postgres)
-            - Effect: Allow
-              Action:
-                - rds-db:connect
-              Resource: !Sub arn:aws:rds-db:${AWS::Region}:${AWS::AccountId}:dbuser:${RDSInstance}/*
-            # Allow application to read secrets from Secrets Manager
-            - Effect: Allow
-              Action:
-                - secretsmanager:GetSecretValue
-                - ssm:GetParameter
-              Resource: "*"
+          PolicyDocument: # 👈 wrap inside PolicyDocument
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:DeleteObject
+                  - s3:ListBucket
+                Resource:
+                  - !Sub arn:aws:s3:::${ImageBucket}
+                  - !Sub arn:aws:s3:::${ImageBucket}/*
+              # Allow application to connect to RDS (Postgres)
+              - Effect: Allow
+                Action:
+                  - rds-db:connect
+                Resource: !Sub arn:aws:rds-db:${AWS::Region}:${AWS::AccountId}:dbuser:${RDSInstance}/*
+              # Allow application to read secrets from Secrets Manager / SSM
+              - Effect: Allow
+                Action:
+                  - secretsmanager:GetSecretValue
+                  - ssm:GetParameter
+                Resource: "*"
 
 
   # ECS Cluster
