@@ -42,6 +42,10 @@ Parameters:
     Type: String
     Default: deployment-files.zip
     Description: Deployment Zip File Name
+  DBName:
+    Type: String
+    Default: gallerydb
+    Description: Database Name
   DBMasterUsername:
     Type: String
     Default: admin
@@ -408,7 +412,7 @@ Resources:
       AllocatedStorage: !Ref AllocatedStorage
       DBInstanceClass: !Ref DBInstanceClass
       DBInstanceIdentifier: !Sub ${EnvironmentName}-db
-      DBName: !Sub ${EnvironmentName}-postgres
+      DBName: !Ref DBName
       DBSubnetGroupName: !Ref DBSubnetGroup
       Engine: !Ref DBEngine
       EngineVersion: !Ref DBEngineVersion
