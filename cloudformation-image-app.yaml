@@ -661,8 +661,6 @@ Resources:
             Interval: 30
             Timeout: 5
             Retries: 3
-          Secrets:
-
           Environment:
             - Name: DB_USERNAME
               ValueFrom: !Ref DBUsernameParameter
