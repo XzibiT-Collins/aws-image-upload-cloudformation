@@ -355,9 +355,6 @@ Resources:
             Condition:
               StringEquals:
                 aws:SourceVpce: !Ref S3GatewayEndpoint
-      Tags:
-        - Key: Name
-          Value: !Sub ${EnvironmentName}-image-bucket-policy
 
 
 
